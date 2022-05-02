@@ -1,3 +1,21 @@
+# This is a clone of josh5/docker-steam-headless
+### Version Notes:
+    v1.0.0 - Cloned josh5/docker-steam-headless
+     * [02/05/2022] Cloned and started using dockerfile.arch.
+
+---
+
+# Plan
+Using the base of this to understand archlinux and deploy steam in docker. Possibly contribute to josh5's version later.
+
+---
+
+
+
+
+
+
+
 # Headless Steam Service
 
 Play your games in the browser with audio. Connect another device and use it with Steam Remote Play. Easily deploy a Steam Docker instance in seconds.
