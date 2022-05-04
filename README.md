@@ -1,17 +1,130 @@
 # This is a clone of josh5/docker-steam-headless
+
 ### Version Notes:
     v1.0.0 - Cloned josh5/docker-steam-headless
      * [02/05/2022] Cloned and started using dockerfile.arch.
-
+    v1.0.1
+     * [02/05/2022] Changed dockerfile from US to GB location and language.
+     * [02/05/2022] Started adding personal notes to look back at as I inspect the files.
+     v1.0.2
+     * [03/05/2022] DeanRickles added NO_AT_BRIDGE=1
+     v1.0.3
+     * [04/05/2022] DeanRickles: Need the locale text files otherwise text input doesn't work with steam on through onVNC.
+     * [04/05/2022] DeanRickles: Enabled Steam install
 ---
 
 # Plan
 Using the base of this to understand archlinux and deploy steam in docker. Possibly contribute to josh5's version later.
 
+Todo:
+* check all files for any improvements.
+* docker file inspection.
+* Move from xfde to kde for desktop.
+
+
+---
+
+# Quick notes:
+
+#### Folder structure
+'''
+    ./overlay = install files.
+    ./image   = Steam icon picture.
+    ./devops  = consitancy docker run file. Possibly split docker run section into a docker-compose file.
+'''
+
+#### Docker run - Need to validity check.
+'''
+docker run -d --name='${container_name}' \
+    --privileged=true \
+    -e PUID='99'  \
+    -e PGID='100'  \
+    -e UMASK='000'  \
+    -e USER_PASSWORD='password' \
+    -e USER='default' \
+    -e USER_HOME='/home/default' \
+    -e TZ='EUROPE/LONDON' \
+    -e USER_LOCALES='en_GB.UTF-8 UTF-8' \
+    -e DISPLAY_CDEPTH='24' \
+    -e DISPLAY_DPI='96' \
+    -e DISPLAY_REFRESH='60' \
+    -e DISPLAY_SIZEH='720' \
+    -e DISPLAY_SIZEW='1280' \
+    -e DISPLAY_VIDEO_PORT='DFP' \
+    -e DISPLAY=':55' \
+    -e NVIDIA_DRIVER_CAPABILITIES='all' \
+    -e NVIDIA_VISIBLE_DEVICES='all' \
+    -e ENABLE_VNC_AUDIO='false' \
+    -v '${project_base_path}/config/home/default-${container_name}':'/home/default':'rw'  \
+    -v '/tmp/.X11-unix/':'/tmp/.X11-unix/':'rw'  \
+    -v '/dev/input':'/dev/input':'ro' \
+    --hostname='${container_name}' \
+    --add-host=${container_name}:127.0.0.1 \
+    --shm-size=2G \
+    ${additional_docker_params} \
+    DeanRickles/arch-steam-headless:${tag}"
+'''
+
+#### dockerfile.arch:
+
+* what is mesa?
+* what version of steamos is released?
+* 'pacman -Scc' is used to remove cache as it's not needed and saves space. very clever.
+
+* file structure:
+    * lang
+    * pacman: ca-certficates
+    * pacman: misc tools
+    * pacman: python
+    * pacman: supervisor
+    * pacman: mesa && vulkan
+    * pacman: 'x Server'
+    * pacman: 'x Server' audio?
+    * pacman: openssh server
+    * noVNC: download & install
+    * Websockify: download & install
+    * pacman: firefox
+    #* pacman: steam
+    * pacman: flatpak support
+    * pacman: patch
+    #* desktop enviroment
+    #* browser streaming
+    * ENV user,user_password,user_home, TZ, USER_LOCALES
+    * config: user
+    * COPY overlay /
+    * ENV display settings
+    * ports (questionable if port ENV work as not connected to ENV.)
+    * run /entrypoint.sh
+
+#### ./overlay/enterypoint.sh
+
+* file structure:
+    * check for /version.txt (doesn't exist)
+    * run each script in /etc/cont-init.d/
+    *
+
+#### ./overlay/etc
+
+
+#### ./overlay/opt
+
+
+#### ./overlay/usr
+
+* 
+
 ---
 
 
 
+# unraid environment variables
+
+'''
+to be filled in.
+
+'''
+
+---
 
 
 

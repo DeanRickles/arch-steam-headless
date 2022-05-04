@@ -15,6 +15,7 @@ RUN \
     echo
 
 # Update locale
+# [02/05/2022] DeanRickles: Changed from US to GB
 RUN \
     echo "**** Configure locals ****" \
         && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen \
@@ -38,6 +39,7 @@ RUN \
     echo
 
 # Install core packages
+# [02/05/2022] DeanRickles: Is python-numpy really needed?
 RUN \
     echo "**** Install tools ****" \
 	    && pacman -Syu --noconfirm --needed \
@@ -93,6 +95,7 @@ RUN \
     && \
     echo
 
+
 # Install mesa requirements
 RUN \
     echo "**** Install mesa and vulkan requirements ****" \
@@ -109,6 +112,7 @@ RUN \
 	    && pacman -Scc --noconfirm \
     && \
     echo
+
 
 # Install X Server requirements
 # TODO: Remove doubles
@@ -145,31 +149,6 @@ RUN \
     && \
     echo
 
-# pacman -Syu --noconfirm --needed \
-#     xorg-server \
-#     xorg-server-xephyr \
-#     xorg-xwininfo \
-#     xorg-xhost \
-#     xorg-xinit \
-#     xorg-xinput \
-#     xorg-xrandr \
-#     xorg-xprop \
-#     xorg-xkill \
-#     xorg-xbacklight \
-#     xorg-xsetroot
-# s
-# pacman -Syu --noconfirm --needed autorandr xdg-desktop-portal xdg-desktop-portal-gtk wmctrl xbindkeys xdotool xautolock
-# 
-# 
-# pacman -Syu --noconfirm --needed gestures
-# pacman -Syu --noconfirm --needed numlockx
-# 
-# echo 'Server = https://mirror.fsmg.org.nz/archlinux/$repo/os/$arch' >> /etc/pacman.d/mirrorlist
-# 
-# Server = https://mirror.pkgbuild.com/$repo/os/$arch
-# Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch
-# Server = https://mirror.leaseweb.net/archlinux/$repo/os/$arch
-
 # Install audio requirements
 RUN \
     echo "**** Install X Server requirements ****" \
@@ -193,7 +172,10 @@ RUN \
     && \
     echo
 
+
 # Install noVNC
+# [02/05/2022] DeanRickles: any reason we're version controlling NOVNC?
+# [02/05/2022] DeanRickles: Assuming there is a credentials file
 ARG NOVNC_VERSION=1.2.0
 RUN \
     echo "**** Fetch noVNC ****" \
@@ -224,7 +206,9 @@ RUN \
             /tmp/noVNC* \
             /tmp/novnc.tar.gz
 
+
 # Install Websockify
+# [02/05/2022] DeanRickles: Look into Websockift and how it works.
 ARG WEBSOCKETIFY_VERSION=0.10.0
 RUN \
     echo "**** Fetch Websockify ****" \
@@ -249,7 +233,8 @@ RUN \
             /tmp/websockify.tar.gz
 
 # Install firefox
-# TODO: MOve under de
+# TODO: Move under de
+# [02/05/2022] DeanRickles: why does it need firefox?
 RUN \
     echo "**** Install firefox ****" \
 	    && pacman -Syu --noconfirm --needed \
@@ -260,18 +245,22 @@ RUN \
     && \
     echo
 
-# # Install Steam
-# RUN \
-#     echo "**** Install steam ****" \
-# 	    && pacman -Syu --noconfirm --needed \
-#             lib32-vulkan-icd-loader
-#             steam \
-#             vulkan-icd-loader \
-#     && \
-#     echo "**** Section cleanup ****" \
-# 	    && pacman -Scc --noconfirm \
-#     && \
-#     echo
+
+# [02/05/2022] DeanRickles: Assuming commented out while testing? 
+# [04/05/2022] DeanRickles: Enabled Steam install
+ # Install Steam
+ RUN \
+     echo "**** Install steam ****" \
+ 	    && pacman -Syu --noconfirm --needed \
+             lib32-vulkan-icd-loader \
+             steam \
+             vulkan-icd-loader \
+     && \
+     echo "**** Section cleanup ****" \
+ 	    && pacman -Scc --noconfirm \
+     && \
+     echo
+
 
 # Install desktop environment
 RUN \
@@ -312,69 +301,17 @@ RUN \
     echo
 
 
-
-# # Install desktop environment
-# RUN \
-#     echo "**** Install desktop environment ****" \
-# 	    && pacman -Syu --noconfirm --needed \
-#             kde-system-meta \
-#             konsole \
-#             plasma-desktop \
-#     && \
-#     echo "**** Section cleanup ****" \
-# 	    && pacman -Scc --noconfirm \
-#     && \
-#     echo
-
-# # Install desktop environment
-# RUN \
-#     echo "**** Install desktop environment ****" \
-# 	    && pacman -Syu --noconfirm --needed \
-#             cinnamon \
-#             polkit-gnome \
-#             gnome-terminal \
-#     && \
-#     echo "**** Section cleanup ****" \
-# 	    && pacman -Scc --noconfirm \
-#     && \
-#     echo
-
-# # Setup browser audio streaming deps
-# RUN \
-#     echo "**** Update apt database ****" \
-#         && apt-get update \
-#     && \
-#     echo "**** Install audio streaming deps ****" \
-#         && apt-get install -y --no-install-recommends \
-#             bzip2 \
-#             gstreamer1.0-alsa \
-#             gstreamer1.0-gl \
-#             gstreamer1.0-gtk3 \
-#             gstreamer1.0-libav \
-#             gstreamer1.0-plugins-base \
-#             gstreamer1.0-plugins-good \
-#             gstreamer1.0-pulseaudio \
-#             gstreamer1.0-qt5 \
-#             gstreamer1.0-tools \
-#             gstreamer1.0-x \
-#             libgstreamer1.0-0 \
-#             libncursesw5 \
-#             libopenal1 \
-#             libsdl-image1.2 \
-#             libsdl-ttf2.0-0 \
-#             libsdl1.2debian \
-#             libsndfile1 \
-#             ucspi-tcp \
-#     && \
-#     echo "**** Section cleanup ****" \
-#         && apt-get clean autoclean -y \
-#         && apt-get autoremove -y \
-#         && rm -rf \
-#             /var/lib/apt/lists/* \
-#             /var/tmp/* \
-#             /tmp/* \
-#     && \
-#     echo
+# [04/05/2022] DeanRickles: Need the locale text files otherwise text input doesn't work with steam on through onVNC.
+# [04/05/2022] DeanRickles: Need to look into how to enable without re-install.
+RUN \
+    echo "**** including  X11 language packs ****" \
+    && sed -i 's/NoExtract  = usr\/share\/locale\/\* usr\/share\/X11\/locale\/\* usr\/share\/i18n\/\*/#NoExtract  = usr\/share\/locale\/\* usr\/share\/X11\/locale\/\* usr\/share\/i18n\/\*/g' /etc/pacman.conf \
+    && pacman -Qqn | pacman -S --noconfirm - \
+    && \
+    echo "**** Section cleanup ****" \
+	    && pacman -Scc --noconfirm \
+    && \
+    echo
 
 # Configure default user and set env
 ENV \
@@ -407,10 +344,13 @@ ENV \
     NVIDIA_DRIVER_CAPABILITIES="all" \
     NVIDIA_VISIBLE_DEVICES="all"
 
+#[03/05/2022] DeanRickles added NO_AT_BRIDGE=1
 # Set container configuration environment variables
 ENV \
     MODE="primary" \
-    ENABLE_VNC_AUDIO="true"
+    ENABLE_VNC_AUDIO="true" \
+    NO_AT_BRIDGE=1
+
 
 # Configure required ports
 ENV \
