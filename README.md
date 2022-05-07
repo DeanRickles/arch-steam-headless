@@ -2,6 +2,8 @@
 
 
 ### Version Notes:
+    v1.0.9 - 07/05/2022
+    * removed amdvlk as it caused amd cpu's to fail using vulkan.
     v1.0.8 - 07/05/2022
     * reverted locate to use US until i get time to fix it.
     v1.0.7 - 07/05/2022

@@ -145,11 +145,9 @@ RUN \
             opencl-mesa \
             pciutils \
             vulkan-mesa-layers \
+            vulkan-intel \
             vulkan-radeon \
             lib32-vulkan-radeon \
-            amdvlk \
-            #vulkan-intel \
-            #lib32-nvidia-utils \
     && \
     echo "**** Section cleanup ****" \
 	    && pacman -Scc --noconfirm \
