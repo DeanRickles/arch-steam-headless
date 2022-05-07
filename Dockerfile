@@ -32,7 +32,7 @@ ENV \
     LC_ALL=en_GB.UTF-8
 RUN \
     echo "**** Setting locale lang ****" \
-    && echo ${LC_ALL} > /etc/locale.gen && locale-gen \
+    && echo $LC_ALL > /etc/locale.gen && locale-gen \
     && \
     echo
 

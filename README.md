@@ -2,8 +2,10 @@
 
 
 ### Version Notes:
+    v1.0.7 - 07/05/2022
+    * locale env variable didn't work. attempt no 2.
     v1.0.6 - 07/05/2022
-    * locale wasn't set as I expected. Now fixed.. I believe.
+    * Locale wasn't set as I expected. Now fixed.. I believe.
     v1.0.5 - 07/05/2022
     * Added pacman packages vulkan-radeon, lib32-vulkan-radeon and, vulkan-tools.
     v1.0.4 - 07/05/2022
