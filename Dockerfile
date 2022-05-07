@@ -22,7 +22,7 @@ RUN \
 # [02/05/2022] DeanRickles: Changed from US to GB  scrapped while testing other things.
 RUN \
     echo "**** Configure locals ****" \
-        && echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen \
+        && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen \
         && locale-gen \
     && \
     echo
@@ -30,12 +30,6 @@ ENV \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8
-RUN \
-    echo "**** Setting locale lang ****" \
-    && echo $LC_ALL > /etc/locale.gen \
-    && locale-gen \
-    && \
-    echo
 
 
 # Re-install certificates 
@@ -151,10 +145,11 @@ RUN \
             opencl-mesa \
             pciutils \
             vulkan-mesa-layers \
-            amdvlk \
-            vulkan-intel \
             vulkan-radeon \
             lib32-vulkan-radeon \
+            amdvlk \
+            #vulkan-intel \
+            #lib32-nvidia-utils \
     && \
     echo "**** Section cleanup ****" \
 	    && pacman -Scc --noconfirm \
