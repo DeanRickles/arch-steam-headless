@@ -30,6 +30,12 @@ ENV \
     LANG=en_GB.UTF-8 \
     LANGUAGE=en_GB:en \
     LC_ALL=en_GB.UTF-8
+RUN \
+    echo "**** Setting locale lang ****" \
+    && echo ${LC_ALL} > /etc/locale.gen && locale-gen \
+    && \
+    echo
+
 
 # Re-install certificates 
 #[07/05/2022] DeanRickles: This package contains the set of CA certificates chosen by the Mozilla Foundation for use with the Internet PKI.
@@ -66,7 +72,7 @@ RUN \
     # vim = Vi Improved, a highly configurable, improved version of the vi text editor.
     # wget = Network utility to retrieve files from the Web.
     # xz = Library and command line tools for XZ and LZMA compressed files.
-    # vulkan-tools = 
+    # vulkan-tools =
 
     #**** Install python ****
     # python = 	Next generation of the python high-level scripting language
