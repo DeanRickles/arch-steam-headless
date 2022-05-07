@@ -4,7 +4,11 @@
 #   image base once SteamOS 3 is released (pending review)
 #
 FROM archlinux:latest
+# orignal creater.
 LABEL maintainer="Josh.5 <jsunnex@gmail.com>"
+# current fork mainainer.
+LABEL maintainer="Dean <dean@rickles.co.uk>"
+
 
 # Update package repos
 RUN \
@@ -18,16 +22,17 @@ RUN \
 # [02/05/2022] DeanRickles: Changed from US to GB
 RUN \
     echo "**** Configure locals ****" \
-        && echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen \
+        && echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen \
         && locale-gen \
     && \
     echo
 ENV \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US:en \
-    LC_ALL=en_US.UTF-8
+    LANG=en_GB.UTF-8 \
+    LANGUAGE=en_GB:en \
+    LC_ALL=en_GB.UTF-8
 
-# Re-install certificates
+# Re-install certificates 
+#[07/05/2022] DeanRickles: This package contains the set of CA certificates chosen by the Mozilla Foundation for use with the Internet PKI.
 RUN \
     echo "**** Install certificates ****" \
 	    && pacman -Syu --noconfirm --needed \
@@ -40,6 +45,32 @@ RUN \
 
 # Install core packages
 # [02/05/2022] DeanRickles: Is python-numpy really needed?
+# [07/05/2022] DeanRickles: python is used within some one the bash scriptd.
+## breakdown of utility packages. ##
+# unsure if needed preappended #?
+    #**** Install tools ****
+    # bash = The GNU Bourne Again shell.
+    # bash-completion = Programmable completion for the bash shell.
+    # curl = An URL retrieval utility and library.
+    # git  = the fast distributed version control system.
+    # less = A terminal based program for viewing text files.
+    # man-db = A utility for reading man pages.
+    # nano = Pico editor clone with enhancements.
+    # net-tools = Configuration tools for Linux networking.
+    # pkg-config = Package compiler and linker metadata toolkit?
+    # rsync = A fast and versatile file copying tool for remote and local files.
+    # screen = Full-screen window manager that multiplexes a physical terminal.
+    # sudo = Give certain users the ability to run some commands as root.
+    # unzip = For extracting and viewing files in .zip archives.
+    # vim = Vi Improved, a highly configurable, improved version of the vi text editor.
+    # wget = Network utility to retrieve files from the Web.
+    # xz = Library and command line tools for XZ and LZMA compressed files.
+
+    #**** Install python ****
+    # python = 	Next generation of the python high-level scripting language
+    #?# python-numpy = Scientific tools for Python
+    # python-pip = The PyPA recommended tool for installing Python packages
+    #?# python-setuptools = Easily download, build, install, upgrade, and uninstall Python packages
 RUN \
     echo "**** Install tools ****" \
 	    && pacman -Syu --noconfirm --needed \
@@ -73,6 +104,8 @@ RUN \
     echo
 
 # Install supervisor
+# [07/05/2022] DeanRickles:
+# supervisor = A system for controlling process state under UNIX.
 RUN \
     echo "**** Install supervisor ****" \
 	    && pacman -Syu --noconfirm --needed \
@@ -95,7 +128,7 @@ RUN \
     && \
     echo
 
-
+# [07/05/2022] DeanRickles: added amdvlk and vulken-intel to sort out vulken errors.
 # Install mesa requirements
 RUN \
     echo "**** Install mesa and vulkan requirements ****" \
@@ -107,6 +140,8 @@ RUN \
             opencl-mesa \
             pciutils \
             vulkan-mesa-layers \
+            amdvlk \
+            vulkan-intel \
     && \
     echo "**** Section cleanup ****" \
 	    && pacman -Scc --noconfirm \

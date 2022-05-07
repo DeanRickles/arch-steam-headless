@@ -1,16 +1,20 @@
 # This is a clone of josh5/docker-steam-headless
 
+
 ### Version Notes:
-    v1.0.0 - Cloned josh5/docker-steam-headless
-     * [02/05/2022] Cloned and started using dockerfile.arch.
-    v1.0.1
-     * [02/05/2022] Changed dockerfile from US to GB location and language.
-     * [02/05/2022] Started adding personal notes to look back at as I inspect the files.
-     v1.0.2
-     * [03/05/2022] DeanRickles added NO_AT_BRIDGE=1
-     v1.0.3
-     * [04/05/2022] DeanRickles: Need the locale text files otherwise text input doesn't work with steam on through onVNC.
-     * [04/05/2022] DeanRickles: Enabled Steam install
+    v1.0.4 - 07/05/2022
+    * Added pacman packages amdvlk and vulken-intel to sort out vulken errors.
+    v1.0.3 - 04/05/2022
+    * Need the locale text files otherwise text input doesn't work with steam on through onVNC.
+    * Enabled Steam install
+    v1.0.2 - 03/05/2022
+    * Added NO_AT_BRIDGE=1
+    1.0.1 - 02/05/2022
+    * Changed dockerfile from US to GB location and language.
+    * Started adding personal notes to look back at as I inspect the files.
+    1.0.0 - 02/05/2022 Cloned josh5/docker-steam-headless
+    *  Cloned and started using dockerfile.arch.
+
 ---
 
 # Plan
@@ -20,7 +24,9 @@ Todo:
 * check all files for any improvements.
 * docker file inspection.
 * Move from xfde to kde for desktop.
-
+* add the following:
+    sudo pacman -Sy vulkan-intel
+    sudo pacman -R amdvlk
 
 ---
 
