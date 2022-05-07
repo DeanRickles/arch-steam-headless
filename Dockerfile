@@ -46,6 +46,7 @@ RUN \
 # Install core packages
 # [02/05/2022] DeanRickles: Is python-numpy really needed?
 # [07/05/2022] DeanRickles: python is used within some one the bash scriptd.
+# [07/05/2022] DeanRickles: added vulkan-tools for troubleshooting. Look to add a github check that vulkaninfo passes without any errors.
 ## breakdown of utility packages. ##
 # unsure if needed preappended #?
     #**** Install tools ****
@@ -65,6 +66,7 @@ RUN \
     # vim = Vi Improved, a highly configurable, improved version of the vi text editor.
     # wget = Network utility to retrieve files from the Web.
     # xz = Library and command line tools for XZ and LZMA compressed files.
+    # vulkan-tools = 
 
     #**** Install python ****
     # python = 	Next generation of the python high-level scripting language
@@ -90,6 +92,7 @@ RUN \
             vim \
             wget \
             xz \
+            vulkan-tools \
     && \
     echo "**** Install python ****" \
 	    && pacman -Syu --noconfirm --needed \
@@ -129,6 +132,7 @@ RUN \
     echo
 
 # [07/05/2022] DeanRickles: added amdvlk and vulken-intel to sort out vulken errors.
+# [07/05/2022] DeanRickles: added vulkan-radeon lib32-vulkan-radeon mean't to add to last push.
 # Install mesa requirements
 RUN \
     echo "**** Install mesa and vulkan requirements ****" \
@@ -142,6 +146,8 @@ RUN \
             vulkan-mesa-layers \
             amdvlk \
             vulkan-intel \
+            vulkan-radeon \
+            lib32-vulkan-radeon \
     && \
     echo "**** Section cleanup ****" \
 	    && pacman -Scc --noconfirm \

@@ -2,6 +2,8 @@
 
 
 ### Version Notes:
+    v1.0.5 - 07/05/2022
+    * Added pacman packages vulkan-radeon, lib32-vulkan-radeon and, vulkan-tools.
     v1.0.4 - 07/05/2022
     * Added pacman packages amdvlk and vulken-intel to sort out vulken errors.
     v1.0.3 - 04/05/2022
