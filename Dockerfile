@@ -19,7 +19,7 @@ RUN \
     echo
 
 # Update locale
-# [02/05/2022] DeanRickles: Changed from US to GB
+# [02/05/2022] DeanRickles: Changed from US to GB  scrapped while testing other things.
 RUN \
     echo "**** Configure locals ****" \
         && echo 'en_GB.UTF-8 UTF-8' > /etc/locale.gen \
@@ -27,12 +27,13 @@ RUN \
     && \
     echo
 ENV \
-    LANG=en_GB.UTF-8 \
-    LANGUAGE=en_GB:en \
-    LC_ALL=en_GB.UTF-8
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8
 RUN \
     echo "**** Setting locale lang ****" \
-    && echo $LC_ALL > /etc/locale.gen && locale-gen \
+    && echo $LC_ALL > /etc/locale.gen 
+    && locale-gen \
     && \
     echo
 

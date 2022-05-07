@@ -2,6 +2,8 @@
 
 
 ### Version Notes:
+    v1.0.8 - 07/05/2022
+    * reverted locate to use US until i get time to fix it.
     v1.0.7 - 07/05/2022
     * locale env variable didn't work. attempt no 2.
     v1.0.6 - 07/05/2022
